@@ -46,7 +46,7 @@
                                   <div data-mdb-input-init class="form-outline mb-4">
                                       <label class="form-label" for="username">Username</label>
                                       <input type="text" id="username" name="username"
-                                          class="form-control form-control" placeholder="Input Username" />
+                                          class="form-control form-control @error('username') is-invalid @enderror" placeholder="Input Username" />
                                       @if ($errors->has('username'))
                                           <div class="text-danger" style="font-size: 13px !important">
                                               {{ $errors->first('username') }}
