@@ -46,30 +46,18 @@
                                   <div data-mdb-input-init class="form-outline mb-4">
                                       <label class="form-label" for="username">Username</label>
                                       <input type="text" id="username" name="username"
-                                          class="form-control form-control @error('username') is-invalid @enderror" placeholder="Input Username" />
+                                          class="form-control form-control  @error('username') is-invalid @enderror"
+                                          placeholder="Input Username" />
                                       @if ($errors->has('username'))
                                           <div class="text-danger" style="font-size: 13px !important">
                                               {{ $errors->first('username') }}
                                           </div>
                                       @endif
                                   </div>
-                                  {{-- <div data-mdb-input-init class="form-outline mb-4">
-                                      <label class="form-label" for="password">Password</label>
-                                      <input type="password" id="password" name="password"
-                                          class="form-control form-control" placeholder="Input Password" /> --}}
-                                  {{-- <span class="input-group-text">
-                                          <i class="fa fa-eye" id="togglePassword" style="cursor: pointer;"></i>
-                                      </span> --}}
-                                  {{-- @if ($errors->has('password'))
-                                          <div class="text-danger text-sm" style="font-size: 13px !important">
-                                              {{ $errors->first('password') }}
-                                          </div>
-                                      @endif
-                                  </div> --}}
-
                                   <label for="password" class="form-label">Password</label>
                                   <div class="input-group mb-3">
-                                      <input type="password" id="password" class="form-control" name="password"
+                                      <input type="password" id="password"
+                                          class="form-control @error('password') is-invalid @enderror" name="password"
                                           placeholder="Input Password" aria-describedby="button-addon">
                                       <button class="btn btn-outline-secondary" type="button" id="button-addon"><i
                                               class="fa fa-eye" id="togglePassword"

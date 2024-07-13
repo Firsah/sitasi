@@ -11,7 +11,7 @@ class authController extends Controller
 {
     public function login()
     {
-        $tittle = "Sibragi |Login";
+        $tittle = "Sitasi |Login";
 
         return  view('auth.login', compact('tittle'));
     }

@@ -6,7 +6,8 @@ use Illuminate\Support\Facades\Route;
 use  App\Http\Controllers\authController;
 use  App\Http\Controllers\berandaController;
 use  App\Http\Controllers\userController;
-use App\Http\Controllers\StaffTrackingController;
+use  App\Http\Controllers\StaffTrackingController;
+use  App\Http\Controllers\trackingAlumniController;
 
 use App\Http\Controllers\sampleController;
 
@@ -53,4 +54,11 @@ Route::prefix('staff_tracking')->middleware('auth')->group(function () {
     Route::get('/profile', [StaffTrackingController::class, 'profile'])->name('StaffTrackingController_profile');
     Route::get('/editProfile', [StaffTrackingController::class, 'editProfile'])->name('StaffTrackingController_editProfile');
     Route::put('/prosesEditProfile', [StaffTrackingController::class, 'prosesEditProfile'])->name('StaffTrackingController_prosesEditProfile');
+});
+
+Route::prefix('tracking_alumni')->middleware('auth')->group(function () {
+    Route::get('/', [trackingAlumniController::class, 'index'])->name('tracking_alumni_index');
+    Route::get('/tambah', [trackingAlumniController::class, 'tambah'])->name('tracking_alumni_tambah');
+    Route::post('prosesTambah', [trackingAlumniController::class, 'prosesTambah'])->name('tracking_alumni_Prosestambah');
+    Route::get('/detail/{id}', [trackingAlumniController::class, 'detailPertanyaan'])->name('tracking_alumni_detailPertanyaan');
 });

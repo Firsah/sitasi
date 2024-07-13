@@ -21,7 +21,8 @@
                         <div class="sb-nav-link-icon"><i class="fa-solid fa-graduation-cap"></i></div>
                         Data Alumni
                     </a>
-                    <a class="nav-link" href="#">
+                    <a class="nav-link {{ Request::routeIs('tracking_alumni_index') ? 'active' : '' }}"
+                        href="{{ route('tracking_alumni_index') }}">
                         <div class="sb-nav-link-icon"><i class="fa-solid fa-address-book"></i></div>
                         Tracking Alumni
                     </a>

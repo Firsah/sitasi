@@ -12,7 +12,7 @@ class userController extends Controller
 {
     public function index()
     {
-        $tittle = "Sibragi |Data User ";
+        $tittle = "Sitasi |Data User ";
         $page   = "Data User";
 
         $user = User::with('role')->get();
@@ -37,7 +37,7 @@ class userController extends Controller
 
     public function tambah()
     {
-        $tittle = "Sibragi|Data User|Tambah";
+        $tittle = "Sitasi|Data User|Tambah";
         $page   = "Tambah User";
 
         $role = Role::all();
