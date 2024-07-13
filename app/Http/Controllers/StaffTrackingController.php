@@ -11,7 +11,7 @@ class StaffTrackingController extends Controller
 {
     public function profile()
     {
-        $tittle = "Sibragi | Profile";
+        $tittle = "Sitasi | Profile";
         $page   = "Profile";
         $user = Auth::user();
 
@@ -24,7 +24,7 @@ class StaffTrackingController extends Controller
 
     public function editProfile()
     {
-        $tittle = "Sibragi | EditProfile";
+        $tittle = "Sitasi | EditProfile";
         $page   = "Edit Profile";
         $page2  = "Edit Profile";
         $user = Auth::user();

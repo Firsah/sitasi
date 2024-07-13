@@ -8,7 +8,7 @@ class berandaController extends Controller
 {
     public  function index()
     {
-        $tittle = "Sibragi | Beranda";
+        $tittle = "Sitasi | Beranda";
         $page   = "Beranda";
 
         return  view('admin.v_beranda', compact('tittle', 'page'));

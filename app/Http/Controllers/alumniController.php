@@ -20,7 +20,7 @@ class alumniController extends Controller
 {
     public function index()
     {
-        $tittle = "Sibragi | Data Alumni";
+        $tittle = "Sitasi | Data Alumni";
         $page   = "Data Alumni";
 
         $alumniAll = alumni::get();
@@ -136,7 +136,7 @@ class alumniController extends Controller
 
     public  function detail_data($id)
     {
-        $tittle = "Sibragi | Data Alumni";
+        $tittle = "Sitasi | Data Alumni";
         $page   = "Data Alumni";
         $page2  = "Detail Alumni";
 
