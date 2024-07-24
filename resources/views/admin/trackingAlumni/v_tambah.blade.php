@@ -124,7 +124,7 @@
 
         //SCRIPT UNTUK TAMBAH PERTANYAAN
         var no = 1;
-        var counter = 0;
+        var counter = 1;
 
         // Menangani tindakan klik pada tombol
         document.getElementById('tambahPertanyaan').addEventListener("click", function() {

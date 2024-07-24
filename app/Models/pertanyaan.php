@@ -25,6 +25,11 @@ class pertanyaan extends Model
 
     public function pilihan()
     {
-        return  $this->hasMany(pilihan::class);
+        return  $this->hasMany(pilihan::class, 'pertanyaan_id');
+    }
+
+    public function jawaban()
+    {
+        return $this->hasMany(jawaban::class);
     }
 }

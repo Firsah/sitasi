@@ -25,7 +25,10 @@
             <li class="breadcrumb-item">{{ $page }}</li>
         </ol>
         <div class="row">
-            <div class="col col-sm-12 d-flex justify-content-start">
+            <div class="col col-sm-12">
+                <a href="#" class="btn btn-primary"><i class="fa-solid fa-plus"></i>
+                    Jenis Pertanyaan
+                </a>
                 <a href="{{ route('tracking_alumni_tambah') }}" class="btn btn-success"><i class="fa-solid fa-plus"></i>
                     Pertanyaan
                 </a>
@@ -50,18 +53,30 @@
                         @foreach ($jenis_pertanyaan as $jp)
                             <tr>
                                 <td>{{ $no++ }}</td>
-                                {{-- <td>{{ $p->jenis_pertanyaan->jenis }}</td> --}}
                                 <td>{{ $jp->jenis }}</td>
-                                <td> - </td>
+                                <td>
+                                    @if ($jp->publish != 0)
+                                        @foreach (explode(',', $jp->publish) as $tahun)
+                                            <a href="{{ route('tracking_alumni_TahunLulusDanJpertanyaan', ['tahun' => $tahun, 'jenis_pertanyaan' => $jp->id]) }}"
+                                                class="btn btn-success btn-sm rounded-pill">{{ $tahun }}</a>
+                                        @endforeach
+                                    @endif
+                                </td>
                                 <td> {{ $jp->created_at }} </td>
                                 <td>
                                     <a href="{{ route('tracking_alumni_detailPertanyaan', $jp->id) }}"
-                                        class="btn btn-primary btn-sm"><i class="fa-solid fa-magnifying-glass"></i>
+                                        class="btn btn-outline-primary btn-sm"><i
+                                            class="fa-solid fa-magnifying-glass"></i>
                                         Detail</a>
-                                    <a href="" class="btn btn-success btn-sm"><i class="fa-solid fa-gear"></i>
+                                    <a href="{{ route('tracking_alumni_publish', $jp->id) }}"
+                                        class="btn btn-outline-secondary btn-sm"><i class="fa-solid fa-gear"></i>
                                         publish</a>
-                                    <a href="" class="btn btn-danger btn-sm"><i class="fa-solid fa-edit"></i>
-                                        Edit</a>
+                                    <a href="" class="btn btn-outline-success btn-sm"><i
+                                            class="fa-solid fa-edit"></i>
+                                        Edit Pertanyaan</a>
+                                    <a href="" class="btn btn-outline-danger btn-sm"><i
+                                            class="fa-solid fa-edit"></i>
+                                        Edit Jenis Pertanyaan</a>
                                 </td>
                             </tr>
                         @endforeach
