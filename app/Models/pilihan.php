@@ -16,8 +16,8 @@ class pilihan extends Model
         'pilihan',
     ];
 
-    public function pernyataan()
+    public function pertanyaan()
     {
-        return  $this->hasMany(pertanyaan::class, 'pernyataan_id');
+        return  $this->belongsTo(pertanyaan::class, 'pertanyaan_id');
     }
 }

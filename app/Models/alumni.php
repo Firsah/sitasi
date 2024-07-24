@@ -31,4 +31,9 @@ class alumni extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public function jawaban()
+    {
+        return $this->hasMany(jawaban::class);
+    }
 }

@@ -16,7 +16,6 @@ return new class extends Migration
             $table->bigInteger('jenis_pertanyaan_id');
             $table->string('pertanyaan');
             $table->string('is_alasan');
-            $table->string('publish')->nullable();
             $table->timestamps();
         });
     }

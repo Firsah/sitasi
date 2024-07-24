@@ -8,6 +8,7 @@ use  App\Http\Controllers\berandaController;
 use  App\Http\Controllers\userController;
 use  App\Http\Controllers\StaffTrackingController;
 use  App\Http\Controllers\trackingAlumniController;
+use  App\Http\Controllers\responsTrackingController;
 
 use App\Http\Controllers\sampleController;
 
@@ -33,6 +34,11 @@ Route::get('/Logout', [authController::class, 'logout'])->name('authController-l
 
 Route::prefix('beranda')->group(function () {
     Route::get('/', [berandaController::class, 'index'])->name('beranda_index')->middleware('auth');
+    Route::get('/pertanyaan/{id}', [berandaController::class, 'fullPertanyaan'])->name('beranda_fullPertanyaan')->middleware('auth');
+});
+
+Route::prefix('responsTracking')->middleware('auth')->group(function () {
+    Route::post('/', [responsTrackingController::class, 'responsAlumni'])->name('responsTracking_responsAlumni');
 });
 
 Route::prefix('user')->middleware('auth')->group(function () {
@@ -61,4 +67,8 @@ Route::prefix('tracking_alumni')->middleware('auth')->group(function () {
     Route::get('/tambah', [trackingAlumniController::class, 'tambah'])->name('tracking_alumni_tambah');
     Route::post('prosesTambah', [trackingAlumniController::class, 'prosesTambah'])->name('tracking_alumni_Prosestambah');
     Route::get('/detail/{id}', [trackingAlumniController::class, 'detailPertanyaan'])->name('tracking_alumni_detailPertanyaan');
+    Route::get('/publish/{id}', [trackingAlumniController::class, 'publish'])->name('tracking_alumni_publish');
+    Route::post('/publish/EditOrCerate/{id}', [trackingAlumniController::class, 'editOrCreate'])->name('tracking_alumni_editOrCreate');
+    Route::get('alumni/{tahun}/{jenis_pertanyaan}', [trackingAlumniController::class, 'TahunLulusDanJpertanyaan'])->name('tracking_alumni_TahunLulusDanJpertanyaan');
+    Route::get('alumni/{id}', [trackingAlumniController::class, 'detailRespons'])->name('tracking_alumni_detailRespons');
 });

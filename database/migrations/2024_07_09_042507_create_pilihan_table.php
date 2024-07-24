@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('pilihan', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('pertanyaan_id');
-            $table->string('pilihan');
+            $table->string('pilihan')->nullable();
             $table->timestamps();
         });
     }
