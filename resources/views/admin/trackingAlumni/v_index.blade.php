@@ -26,7 +26,8 @@
         </ol>
         <div class="row">
             <div class="col col-sm-12">
-                <a href="#" class="btn btn-primary"><i class="fa-solid fa-plus"></i>
+                <a href="{{ route('tracking_alumni_tambahJenisPertanyaan') }}" class="btn btn-primary"><i
+                        class="fa-solid fa-plus"></i>
                     Jenis Pertanyaan
                 </a>
                 <a href="{{ route('tracking_alumni_tambah') }}" class="btn btn-success"><i class="fa-solid fa-plus"></i>
@@ -71,11 +72,11 @@
                                     <a href="{{ route('tracking_alumni_publish', $jp->id) }}"
                                         class="btn btn-outline-secondary btn-sm"><i class="fa-solid fa-gear"></i>
                                         publish</a>
-                                    <a href="" class="btn btn-outline-success btn-sm"><i
+                                    {{-- <a href="" class="btn btn-outline-success btn-sm"><i
                                             class="fa-solid fa-edit"></i>
-                                        Edit Pertanyaan</a>
-                                    <a href="" class="btn btn-outline-danger btn-sm"><i
-                                            class="fa-solid fa-edit"></i>
+                                        Edit Pertanyaan</a> --}}
+                                    <a href="{{ route('tracking_alumni_editJenisPertanyaan', $jp->id) }}"
+                                        class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-edit"></i>
                                         Edit Jenis Pertanyaan</a>
                                 </td>
                             </tr>

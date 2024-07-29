@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\alumni;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\jawaban;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -61,5 +63,30 @@ class berandaController extends Controller
             'jenis_pertanyaan',
             'sudahMenjawab'
         ]));
+    }
+
+    public function cetakBuktiPengisian($id)
+    {
+        $user = auth()->user();
+        $alumni_id = $user->alumni_id;
+
+        $jenis_pertanyaan  = jenis_pertanyaan::findOrFail($id);
+        $status =  jawaban::where('alumni_id', $alumni_id)->get()->groupBy('alumni_id');
+        $data =  compact(
+            'user',
+            'jenis_pertanyaan',
+            'alumni_id',
+            'status'
+        );
+
+        $pdf = Pdf::loadView('user_alumni.bukti_pengisian', $data);
+        return $pdf->download('bukti_pengisian.pdf');
+
+        // return view('user_alumni.bukti_pengisian', compact(
+        //     'user',
+        //     'jenis_pertanyaan',
+        //     'alumni_id',
+        //     'status'
+        // ));
     }
 }

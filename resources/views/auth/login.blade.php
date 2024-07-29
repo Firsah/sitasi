@@ -76,11 +76,11 @@
                                               class="btn btn-primary btn btn-block mb-3" type="submit">Masuk <i
                                                   class="fa-solid fa-arrow-up-from-bracket fa-rotate-90"
                                                   style="margin-left: 5px"></i></button>
-                                          <button data-mdb-button-init data-mdb-ripple-init
-                                              class="btn btn-outline-dark btn btn-block" type="button"><i
+                                          <a href="{{ route('daftarAlumniController-index') }}" data-mdb-button-init
+                                              data-mdb-ripple-init class="btn btn-outline-dark btn btn-block"><i
                                                   class="fa-solid fa-clipboard-list"
                                                   style="margin-right: 5px"></i>Daftar
-                                              Alumni</button>
+                                              Alumni</a>
                                       </div>
                                       <div class="col">
                                           <div class="row content-note">

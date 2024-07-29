@@ -6,6 +6,15 @@
             border-left: 1px solid #fff !important;
             border-right: 1px solid #fff !important;
         }
+
+        .fa-download {
+            color: #000;
+        }
+
+        .ket-cetak {
+            color: #000;
+            font-size: 16px;
+        }
     </style>
 </head>
 
@@ -29,11 +38,24 @@
             </div>
 
             @if ($sudahMenjawab)
-                <div class="row mt-5">
+                <div class="row mt-5 mb-4">
                     <div class="col-12">
                         <div class="alert alert-success">
                             Selamat, Anda Sudah Menginput Jawaban!!
                         </div>
+                    </div>
+                </div>
+
+                <div class="row mt-5">
+                    <div class="col-12 text-center">
+                        <a href="{{ route('beranda_cetakBuktiPengisian', ['id' => $jenis_pertanyaan->id]) }}">
+                            <div class="mb-4">
+                                <i class="fa-solid fa-download fa-2xl"></i>
+                            </div>
+                            <div class="ket-cetak"><button class="btn btn-outline-success btn-sm">Cetak Bukti
+                                    Pengisian!!</button>
+                            </div>
+                        </a>
                     </div>
                 </div>
             @else

@@ -11,6 +11,8 @@ use App\Models\jenis_pertanyaan;
 use App\Models\pertanyaan;
 use App\Models\pilihan;
 
+
+
 class trackingAlumniController extends Controller
 {
     public function  index()
@@ -178,8 +180,6 @@ class trackingAlumniController extends Controller
         $totAlumni   = $alumni->count();
         $belumMenjawabCount = $totAlumni - $sudahMenjawabCount;
 
-
-
         return view('admin.trackingAlumni.publish.v_tampilRespons', compact([
             'tittle',
             'page',
@@ -223,5 +223,68 @@ class trackingAlumniController extends Controller
             'pertanyaan',
             'jawaban'
         ]));
+    }
+
+    public function tambahJenisPertanyaan()
+    {
+        $tittle = "Sitasi|Tracking Alumni|Tambah Jenis Pertanyaan";
+        $page   = "Tambah Jenis Pertanyaan";
+
+        return view('admin.trackingAlumni.v_tambahJenisPertanyaan', compact(
+            'tittle',
+            'page',
+        ));
+    }
+
+    public function prosesTambahJenisPertanyaan(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'jenis_pertanyaan' => 'required'
+            ],
+            [
+                'jenis_pertanyaan.required' => 'Jenis Pertanyaan Wajib Diisi!!'
+            ]
+        );
+
+        $jenisPertanyaan = new jenis_pertanyaan();
+        $jenisPertanyaan->jenis = $request->jenis_pertanyaan;
+        $jenisPertanyaan->save();
+
+        return redirect()->route('tracking_alumni_index')->with('success', 'Tambah Jenis Pertanyaan  Berhasil!!');
+    }
+
+    public function editJenisPertanyaan($id)
+    {
+        $tittle = "Sitasi|Tracking Alumni|Edit Jenis Pertanyaan";
+        $page   = "Edit Jenis Pertanyaan";
+
+        $jenis = jenis_pertanyaan::findOrFail($id);
+
+        return view('admin.trackingAlumni.v_editJenisPertanyaan', compact(
+            'tittle',
+            'page',
+            'jenis',
+        ));
+    }
+
+    public function  prosesEditJenisPertanyaan(Request $request, $id)
+    {
+        $this->validate(
+            $request,
+            [
+                'jenis_pertanyaan' => 'required'
+            ],
+            [
+                'jenis_pertanyaan.required' => 'Jenis Pertanyaan Wajib Diisi!!'
+            ]
+        );
+
+        $jPertanyaan = jenis_pertanyaan::findOrFail($id);
+        $jPertanyaan->jenis = $request->jenis_pertanyaan;
+        $jPertanyaan->save();
+
+        return redirect()->route('tracking_alumni_index')->with('success', 'Edit Jenis Pertanyaan  Berhasil!!');
     }
 }
