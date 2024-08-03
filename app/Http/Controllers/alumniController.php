@@ -18,14 +18,55 @@ use Illuminate\Support\Facades\Redirect;
 
 class alumniController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $tittle = "Sitasi | Data Alumni";
         $page   = "Data Alumni";
 
-        $alumniAll = alumni::get();
+        $selected_tahunLulus    =  $request->input('tahun_lulus');
+        $selected_kelas         =  $request->input('kelas');
 
-        return view('admin.alumni.v_index', compact('tittle', 'page', 'alumniAll'));
+        $query = alumni::query();
+
+        if ($selected_tahunLulus) {
+            $tahunLulusArray =  is_array($selected_tahunLulus) ? $selected_tahunLulus : explode(',', $selected_tahunLulus);
+            $tahunLulusArray =  array_filter($tahunLulusArray);
+
+            if (!empty($tahunLulusArray)) {
+                $query->whereIn('tahun_lulus', $tahunLulusArray);
+            }
+        }
+
+        if ($selected_kelas) {
+            $kelasArray =  is_array($selected_kelas) ? $selected_kelas : explode(',', $selected_kelas);
+            $kelasArray =  array_filter($kelasArray);
+
+            if (!empty($selected_kelas)) {
+                $query->whereIn('kelas', $kelasArray);
+            }
+        }
+
+        $dataTahunLulus = DB::table('alumni')
+            ->select('tahun_lulus', 'kelas')
+            ->distinct()
+            ->pluck('tahun_lulus')
+            ->unique()
+            ->sort();
+
+        $dataKelas = DB::table('alumni')
+            ->select('kelas')
+            ->distinct()
+            ->pluck('kelas');
+
+        $alumniAll = $query->get();
+
+        return view('admin.alumni.v_index', compact(
+            'tittle',
+            'page',
+            'alumniAll',
+            'dataTahunLulus',
+            'dataKelas',
+        ));
     }
 
     public  function update_data()
