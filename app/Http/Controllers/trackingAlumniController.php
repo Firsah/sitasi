@@ -132,7 +132,7 @@ class trackingAlumniController extends Controller
     public function editOrCreate(Request $request, $id)
     {
         // Menggabungkan tahun_lulus menjadi satu string yang dipisahkan dengan koma
-        $publish = implode(',', $request->tahun_lulus);
+        $publish = $request->has('tahun_lulus') ? implode(',', $request->tahun_lulus) : '';
 
         // Mengupdate jenis_pertanyaan dengan tahun_lulus yang dipilih
         $jenisPertanyaan = jenis_pertanyaan::findOrFail($id);
@@ -156,6 +156,9 @@ class trackingAlumniController extends Controller
         //memeriksa apakah alumni sudah menjawab?
         $sudahMenjawabCount = 0;
         foreach ($alumni as $alumnus) {
+
+            $alumnus->jenis_pertanyaan_id = $jenis_pertanyaan;
+
             if (jawaban::whereIn('pertanyaan_id', $pertanyaanId)
                 ->where('alumni_id', $alumnus->id)
                 ->exists()
@@ -193,7 +196,7 @@ class trackingAlumniController extends Controller
         ]));
     }
 
-    public  function detailRespons($id)
+    public  function detailRespons($id, $jenisPertanyaanId)
     {
         $tittle = "Sitasi|Tracking Alumni";
         $page   = "Tampil Respons";
@@ -201,8 +204,14 @@ class trackingAlumniController extends Controller
 
         $alumni = alumni::findOrFail($id);
 
-        //Mengambil jenis pertanyaan yang sudah dijawab oleh alumni
-        $pertanyaanId = jawaban::where('alumni_id', $id)->pluck('pertanyaan_id');
+        // Mengambil jenis pertanyaan yang sudah dijawab oleh alumni dan sesuai dengan ID jenis pertanyaan
+        $pertanyaanId = jawaban::where('alumni_id', $id)
+            ->whereHas('pertanyaan', function ($query) use ($jenisPertanyaanId) {
+                $query->where('jenis_pertanyaan_id', $jenisPertanyaanId);
+            })
+            ->pluck('pertanyaan_id');
+
+
         $jenisPertanyaan = pertanyaan::whereIn('id', $pertanyaanId)
             ->with('jenis_pertanyaan')
             ->get()

@@ -124,7 +124,7 @@
                                         <td>{{ $alumnus->tahun_lulus }}</td>
                                         @if ($alumnus->sudah_menjawab)
                                             <td>
-                                                <a href="{{ route('tracking_alumni_detailRespons', $alumnus->id) }}"
+                                                <a href="{{ route('tracking_alumni_detailRespons', ['id' => $alumnus->id, 'jenisPertanyaanId' => $alumnus->jenis_pertanyaan_id]) }}"
                                                     class="btn btn-success btn-sm">Sudah Menjawab |
                                                     {{ \Carbon\Carbon::parse($alumnus->created_at_jawaban)->format('d-m-Y H:i:s') }}</a>
                                             </td>

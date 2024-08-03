@@ -131,22 +131,18 @@
                     $no = 1;
                 @endphp
 
-                <tr align="center" style="font-size: 14px !important;">
-                    <td>{{ $no++ }}</td>
-                    <td>{{ $jenis_pertanyaan->jenis }}</td>
-                    <td>
-                        @php
-                            $sudahMenjawab = $status->has($alumni_id);
-                            $tglMenjawab = $status[$alumni_id]->first();
-                        @endphp
-                        {{ \Carbon\Carbon::parse($tglMenjawab->created_at)->format('d-m-Y H:m:s') }}
-                    </td>
-                    <td>
-                        @if ($sudahMenjawab)
-                            OK
-                        @endif
-                    </td>
-                </tr>
+                @foreach ($status as $alumnus)
+                    <tr align="center" style="font-size: 14px !important;">
+                        <td>{{ $no++ }}</td>
+                        <td>{{ $jenis_pertanyaan->jenis }}</td>
+                        <td>
+                            {{ $alumnus->created_at_jawaban ? \Carbon\Carbon::parse($alumnus->created_at_jawaban)->format('d-m-Y H:i:s') : 'Belum Mengisi' }}
+                        </td>
+                        <td>
+                            {{ $alumnus->sudah_menjawab ? 'OK' : 'Belum Mengisi' }}
+                        </td>
+                    </tr>
+                @endforeach
             </table>
         </div>
     </div>

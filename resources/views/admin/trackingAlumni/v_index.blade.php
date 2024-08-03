@@ -56,7 +56,7 @@
                                 <td>{{ $no++ }}</td>
                                 <td>{{ $jp->jenis }}</td>
                                 <td>
-                                    @if ($jp->publish != 0)
+                                    @if (!empty($jp->publish) && $jp->publish != '0')
                                         @foreach (explode(',', $jp->publish) as $tahun)
                                             <a href="{{ route('tracking_alumni_TahunLulusDanJpertanyaan', ['tahun' => $tahun, 'jenis_pertanyaan' => $jp->id]) }}"
                                                 class="btn btn-success btn-sm rounded-pill">{{ $tahun }}</a>
