@@ -13,6 +13,7 @@ class jawaban extends Model
 
     protected $fillable = [
         'alumni_id',
+        'jenis_pertanyaan_id',
         'pertanyaan_id',
         'jawaban',
         'alasan'
@@ -26,5 +27,10 @@ class jawaban extends Model
     public  function pertanyaan()
     {
         return $this->belongsTo(pertanyaan::class);
+    }
+
+    public  function jenis_pertanyaan()
+    {
+        return $this->belongTo(jenis_pertanyaan::class);
     }
 }

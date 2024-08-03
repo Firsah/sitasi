@@ -85,6 +85,11 @@
                                                 </div>
                                             @endif
                                         @endforeach
+
+                                        <!-- menginput secara  tersempunyi jenis  pertanyaan -->
+                                        <input type="hidden" name="jenis_pertanyaan_id[{{ $item->id }}]"
+                                            value="{{ $item->jenis_pertanyaan_id }}">
+
                                         <div class="row mt-3">
                                             <div class="col">
                                                 @if ($item->is_alasan == 'iya')

@@ -73,7 +73,7 @@ Route::prefix('tracking_alumni')->middleware('auth')->group(function () {
     Route::get('/publish/{id}', [trackingAlumniController::class, 'publish'])->name('tracking_alumni_publish');
     Route::post('/publish/EditOrCerate/{id}', [trackingAlumniController::class, 'editOrCreate'])->name('tracking_alumni_editOrCreate');
     Route::get('alumni/{tahun}/{jenis_pertanyaan}', [trackingAlumniController::class, 'TahunLulusDanJpertanyaan'])->name('tracking_alumni_TahunLulusDanJpertanyaan');
-    Route::get('alumni/{id}', [trackingAlumniController::class, 'detailRespons'])->name('tracking_alumni_detailRespons');
+    Route::get('alumniRespons/{id}/{jenisPertanyaanId}', [trackingAlumniController::class, 'detailRespons'])->name('tracking_alumni_detailRespons');
     Route::get('/tambahJenisPertanyaan', [trackingAlumniController::class, 'tambahJenisPertanyaan'])->name('tracking_alumni_tambahJenisPertanyaan');
     Route::post('/ProsesTambahJenisPertanyaan', [trackingAlumniController::class, 'prosesTambahJenisPertanyaan'])->name('tracking_alumni_prosesTambahJenisPertanyaan');
     Route::get('/editJenisPertanyaan/{id}', [trackingAlumniController::class, 'editJenisPertanyaan'])->name('tracking_alumni_editJenisPertanyaan');

@@ -1,5 +1,5 @@
 <head>
-    <title>{{ $tittle }}</title>
+    <title>{{ $title }}</title>
     <!-- Tambahkan link ke file CSS dari SweetAlert2 CDN -->
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
     <style>
@@ -88,14 +88,12 @@
                                 <div class="jPertanyaan">{{ $jp->jenis }}</div>
                                 <div>Status :
                                     @php
-                                        $sudahMenjawab = $jawaban->has($alumni_id);
+                                        // Mengecek apakah alumni sudah menjawab pertanyaan ini
+                                        $sudahMenjawab = $jawaban->firstWhere('jenis_pertanyaan_id', $jp->id);
                                     @endphp
                                     @if ($sudahMenjawab)
-                                        @php
-                                            $jawabanAlumni = $jawaban[$alumni_id]->first();
-                                        @endphp
                                         <span class="text-success">Sudah Menjawab |
-                                            {{ \Carbon\Carbon::parse($jawabanAlumni->created_at)->format('d-m-Y H:m:s') }}</span>
+                                            {{ \Carbon\Carbon::parse($sudahMenjawab->created_at)->format('d-m-Y H:i:s') }}</span>
                                     @else
                                         <span class="text-danger">Belum Menjawab</span>
                                     @endif
