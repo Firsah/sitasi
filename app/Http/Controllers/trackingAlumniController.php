@@ -6,6 +6,7 @@ use App\Models\alumni;
 use App\Models\jawaban;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 use App\Models\jenis_pertanyaan;
 use App\Models\pertanyaan;
@@ -278,7 +279,7 @@ class trackingAlumniController extends Controller
         ));
     }
 
-    public function  prosesEditJenisPertanyaan(Request $request, $id)
+    public function prosesEditJenisPertanyaan(Request $request, $id)
     {
         $this->validate(
             $request,
@@ -295,5 +296,64 @@ class trackingAlumniController extends Controller
         $jPertanyaan->save();
 
         return redirect()->route('tracking_alumni_index')->with('success', 'Edit Jenis Pertanyaan  Berhasil!!');
+    }
+
+    public function cetakTrackingAlumni($tahun, $jenisPertanyaanId)
+    {
+        $alumni = alumni::where('tahun_lulus', $tahun)->get();
+        $jenisPertanyaan = jenis_pertanyaan::findOrFail($jenisPertanyaanId);
+
+        $pertanyaanId = $jenisPertanyaan->pertanyaan()->pluck('id')->toArray();
+
+        //memeriksa apakah alumni sudah menjawab?
+        $sudahMenjawabCount = 0;
+        foreach ($alumni as $alumnus) {
+
+            $alumnus->jenis_pertanyaan_id = $jenisPertanyaanId;
+
+            if (jawaban::whereIn('pertanyaan_id', $pertanyaanId)
+                ->where('alumni_id', $alumnus->id)
+                ->exists()
+            ) {
+                $sudahMenjawabCount++;
+                $alumnus->sudah_menjawab =  true;
+
+                //mengecek user sedang login  apakah  telah menginput jawaban
+                $jawabanAlumni = jawaban::where('alumni_id', $alumnus->id)
+                    ->whereIn('pertanyaan_id', $pertanyaanId)
+                    ->first();
+
+                // Tambahkan informasi created_at ke dalam objek alumni
+                $alumnus->created_at_jawaban = $jawabanAlumni->created_at;
+            } else {
+                $alumnus->sudah_menjawab = false;
+                $alumnus->created_at_jawaban = null;
+            }
+        }
+
+        $tahunLulus  = alumni::where('tahun_lulus', $tahun)->pluck('tahun_lulus')->first();
+        $totAlumni   = $alumni->count();
+        $belumMenjawabCount = $totAlumni - $sudahMenjawabCount;
+
+        $data =  compact([
+            'alumni',
+            'tahunLulus',
+            'sudahMenjawabCount',
+            'belumMenjawabCount',
+            'totAlumni',
+            'jenisPertanyaan'
+        ]);
+
+        $pdf = Pdf::loadView('admin.trackingAlumni.publish.v_cetakRespons', $data);
+        return $pdf->download('bukti_pengisian_tracking_alumni.pdf');
+
+        // return view('admin.trackingAlumni.publish.v_cetakRespons', compact(
+        //     'alumni',
+        //     'tahunLulus',
+        //     'sudahMenjawabCount',
+        //     'belumMenjawabCount',
+        //     'totAlumni',
+        //     'jenisPertanyaan'
+        // ));
     }
 }

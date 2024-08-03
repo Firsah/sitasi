@@ -78,4 +78,5 @@ Route::prefix('tracking_alumni')->middleware('auth')->group(function () {
     Route::post('/ProsesTambahJenisPertanyaan', [trackingAlumniController::class, 'prosesTambahJenisPertanyaan'])->name('tracking_alumni_prosesTambahJenisPertanyaan');
     Route::get('/editJenisPertanyaan/{id}', [trackingAlumniController::class, 'editJenisPertanyaan'])->name('tracking_alumni_editJenisPertanyaan');
     Route::put('/prosesEditJenisPertanyaan/{id}', [trackingAlumniController::class, 'prosesEditJenisPertanyaan'])->name('tracking_alumni_prosesEditJenisPertanyaan');
+    Route::get('print_respons/{tahun}/{jenis_pertanyaan}', [trackingAlumniController::class, 'cetakTrackingAlumni'])->name('tracking_alumni_print_respons');
 });

@@ -103,7 +103,17 @@
                 </div>
                 <!-- Content Row -->
 
-                <div class="row mt-5">
+                <div class="row">
+                    <div class="col col-sm-12 d-flex justify-content-end">
+                        <a href="{{ route('tracking_alumni_print_respons', ['tahun' => $tahunLulus, 'jenis_pertanyaan' => $Jpertanyaan->id]) }}" class="btn btn-primary"><i
+                                class="fa-solid fa-print"></i>
+                            Print
+                        </a>
+                    </div>
+
+                </div>
+
+                <div class="row mt-2">
                     <div class="col-12">
                         <table class="table table-bordered table-striped">
                             <thead>
