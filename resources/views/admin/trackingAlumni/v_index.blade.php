@@ -24,17 +24,21 @@
             <li class="breadcrumb-item"><a href="{{ route('beranda_index') }}">Beranda</a></li>
             <li class="breadcrumb-item">{{ $page }}</li>
         </ol>
-        <div class="row">
-            <div class="col col-sm-12">
-                <a href="{{ route('tracking_alumni_tambahJenisPertanyaan') }}" class="btn btn-primary"><i
-                        class="fa-solid fa-plus"></i>
-                    Jenis Pertanyaan
-                </a>
-                <a href="{{ route('tracking_alumni_tambah') }}" class="btn btn-success"><i class="fa-solid fa-plus"></i>
-                    Pertanyaan
-                </a>
+        @if (auth()->check() &&
+                (auth()->user()->Role->role == 'super admin' || auth()->user()->Role->role == 'staff tracking alumni'))
+            <div class="row">
+                <div class="col col-sm-12">
+                    <a href="{{ route('tracking_alumni_tambahJenisPertanyaan') }}" class="btn btn-primary"><i
+                            class="fa-solid fa-plus"></i>
+                        Jenis Pertanyaan
+                    </a>
+                    <a href="{{ route('tracking_alumni_tambah') }}" class="btn btn-success"><i
+                            class="fa-solid fa-plus"></i>
+                        Pertanyaan
+                    </a>
+                </div>
             </div>
-        </div>
+        @endif
         <div class="row mt-5">
             <div class="col-12">
                 <table id="table-user" class="display wrap table-sm" style="width:100%">
@@ -69,15 +73,18 @@
                                         class="btn btn-outline-primary btn-sm"><i
                                             class="fa-solid fa-magnifying-glass"></i>
                                         Detail</a>
-                                    <a href="{{ route('tracking_alumni_publish', $jp->id) }}"
-                                        class="btn btn-outline-secondary btn-sm"><i class="fa-solid fa-gear"></i>
-                                        publish</a>
-                                    {{-- <a href="" class="btn btn-outline-success btn-sm"><i
+                                    @if (auth()->check() &&
+                                            (auth()->user()->Role->role == 'super admin' || auth()->user()->Role->role == 'staff tracking alumni'))
+                                        <a href="{{ route('tracking_alumni_publish', $jp->id) }}"
+                                            class="btn btn-outline-secondary btn-sm"><i class="fa-solid fa-gear"></i>
+                                            publish</a>
+                                        {{-- <a href="" class="btn btn-outline-success btn-sm"><i
                                             class="fa-solid fa-edit"></i>
                                         Edit Pertanyaan</a> --}}
-                                    <a href="{{ route('tracking_alumni_editJenisPertanyaan', $jp->id) }}"
-                                        class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-edit"></i>
-                                        Edit Jenis Pertanyaan</a>
+                                        <a href="{{ route('tracking_alumni_editJenisPertanyaan', $jp->id) }}"
+                                            class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-edit"></i>
+                                            Edit Jenis Pertanyaan</a>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

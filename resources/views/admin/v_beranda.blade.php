@@ -67,44 +67,45 @@
                 <div>{{ Auth::user()->name }} ({{ Auth::user()->role->role }})</div>
             </div>
         </div>
-
-        <div class="row">
-            <div class="col-12 col-md-6">
-                <div class="card p-0 mb-3">
-                    <a href="" class="tagA">
-                        <div class="col-12" id="contVerif">
-                            <div class="jPertanyaan">VERIFIKASI DATA DIRI</div>
-                            <div>Status :</div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
-            @foreach ($jenisPertanyaan as $jp)
+        @if (auth()->check() && auth()->user()->Role->role == 'alumni')
+            <div class="row">
                 <div class="col-12 col-md-6">
                     <div class="card p-0 mb-3">
-                        <a href="{{ route('beranda_fullPertanyaan', $jp->id) }}" class="tagA">
-                            <div class="col-12" id="cont">
-                                <div class="jPertanyaan">{{ $jp->jenis }}</div>
-                                <div>Status :
-                                    @php
-                                        // Mengecek apakah alumni sudah menjawab pertanyaan ini
-                                        $sudahMenjawab = $jawaban->firstWhere('jenis_pertanyaan_id', $jp->id);
-                                    @endphp
-                                    @if ($sudahMenjawab)
-                                        <span class="text-success">Sudah Menjawab |
-                                            {{ \Carbon\Carbon::parse($sudahMenjawab->created_at)->format('d-m-Y H:i:s') }}</span>
-                                    @else
-                                        <span class="text-danger">Belum Menjawab</span>
-                                    @endif
-                                </div>
+                        <a href="" class="tagA">
+                            <div class="col-12" id="contVerif">
+                                <div class="jPertanyaan">VERIFIKASI DATA DIRI</div>
+                                <div>Status :</div>
                             </div>
                         </a>
                     </div>
                 </div>
-            @endforeach
 
-        </div>
+                @foreach ($jenisPertanyaan as $jp)
+                    <div class="col-12 col-md-6">
+                        <div class="card p-0 mb-3">
+                            <a href="{{ route('beranda_fullPertanyaan', $jp->id) }}" class="tagA">
+                                <div class="col-12" id="cont">
+                                    <div class="jPertanyaan">{{ $jp->jenis }}</div>
+                                    <div>Status :
+                                        @php
+                                            // Mengecek apakah alumni sudah menjawab pertanyaan ini
+                                            $sudahMenjawab = $jawaban->firstWhere('jenis_pertanyaan_id', $jp->id);
+                                        @endphp
+                                        @if ($sudahMenjawab)
+                                            <span class="text-success">Sudah Menjawab |
+                                                {{ \Carbon\Carbon::parse($sudahMenjawab->created_at)->format('d-m-Y H:i:s') }}</span>
+                                        @else
+                                            <span class="text-danger">Belum Menjawab</span>
+                                        @endif
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                @endforeach
+
+            </div>
+        @endif
     </div>
 
     <!-- Script SweetAlert2 CDN -->

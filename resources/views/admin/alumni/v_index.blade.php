@@ -27,21 +27,22 @@
                     data-bs-target="#kelasModal"> <i class="fa-solid fa-filter"></i>
                     Kelas
                 </button>
-                <button class="btn btn-outline-warning" style="margin-right: 10px" data-bs-toggle="modal"
+                <button class="btn btn-outline-secondary" style="margin-right: 10px" data-bs-toggle="modal"
                     data-bs-target="#tahunLulusModal"><i class="fa-solid fa-filter"></i>
                     Tahun Lulus
                 </button>
 
                 <a href="{{ route('alumni_index') }}" style="margin-right: 10px" class="btn btn-danger"><i
-                    class='bx bx-reset' style="margin-right:3px"></i>Reset Filter</a>
+                        class='bx bx-reset' style="margin-right:3px"></i>Reset Filter</a>
                 {{-- <a href="{{ route('akuisisiController-update-data') }}" class="btn btn-success btn-outline">
                     <i class='bx bx-refresh' style="margin-right:3px"></i>Update Data
                 </a> --}}
-
-                <a href="{{ route('alumni_updateData') }}" class="btn btn-success"><i
-                        class="fa-solid fa-arrows-rotate"></i>
-                    Update Data Alumni
-                </a>
+                @if (auth()->check() && (auth()->user()->Role->role == 'super admin' || auth()->user()->Role->role == 'staff tracking alumni'))
+                    <a href="{{ route('alumni_updateData') }}" class="btn btn-success"><i
+                            class="fa-solid fa-arrows-rotate"></i>
+                        Update Data Alumni
+                    </a>
+                @endif
             </div>
 
         </div>
