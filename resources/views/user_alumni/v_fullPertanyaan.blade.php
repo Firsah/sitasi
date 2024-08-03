@@ -26,7 +26,11 @@
         <h1 class="mt-4">{{ $page }}</h1>
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item"><a href="{{ route('beranda_index') }}">Beranda</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('tracking_alumni_index') }}">Tracking Alumni</a></li>
+            @if (auth()->check() && !auth()->user()->Role->role == 'alumni')
+                <li class="breadcrumb-item"><a href="{{ route('tracking_alumni_index') }}">Tracking Alumni</a></li>
+            @else
+                <li class="breadcrumb-item">Tracking Alumni</li>
+            @endif
             <li class="breadcrumb-item">{{ $page }}</li>
         </ol>
 
